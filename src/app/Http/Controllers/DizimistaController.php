@@ -32,37 +32,58 @@ class DizimistaController extends Controller
             return view('not_found');
         }
     }
+    private function setaAtributo(&$objeto, $atributo,$request,$eSimNao = false)
+    {
+        $dado = $request->input($atributo);
+        if($eSimNao){
+            $dado = $dado === "Sim";
+        }
+        if($objeto[$atributo]==$dado){
+            return false;
+        }
+        else{
+            $objeto[$atributo] = $dado;
+            return true;
+        }
+    }
 
     public function update($dizimista_id){
         $this->middleware('VerifyCsrfToken');
+
         $request = Request();
         $dizimista = Dizimista::find($dizimista_id);
 
+        $alterado = $this->setaAtributo($dizimista,'nome',$request);
+        $alterado = $this->setaAtributo($dizimista,'data_nascimento',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'sexo',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'naturalidade',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'estado_civil',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'nome_conjuge',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'data_nascimento_conjuge',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'numero_whatsapp',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'numero_fixo',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'email',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'bairro',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'cidade',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'cep',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'comunidade',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'pedido_oracao',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'participa_pastoral',$request,true) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'pastoral_desejada',$request) || $alterado;
 
-        $dizimista->ultimo_atualizador_id = Auth::id();
-        $dizimista->ultima_atualizacao = now();
+        if ($alterado || $request->has('atualizado')) {
+            $dizimista->ultimo_atualizador_id = Auth::id();
+            $dizimista->ultima_atualizacao = now();
+            if($request->has('atualizado')){
+                $this->setaAtributo($dizimista,'atualizado',$request, true);
+                $alterado = true;
+            }
+            else{
+                $dizimista->atualizado = true;
+            }
+        }
 
-        $dizimista->nome = $request->input('nome');
-        $dizimista->data_nascimento = $request->input('data_nascimento');
-        $dizimista->sexo = $request->input('sexo');
-        $dizimista->naturalidade = $request->input('naturalidade');
-        $dizimista->nome_conjuge = $request->input('nome_conjuge');
-        $dizimista->data_nascimento_conjuge = $request->input('data_nascimento_conjuge');
-        $dizimista->numero_whatsapp = $request->input('numero_whatsapp');
-        $dizimista->numero_fixo = $request->input('numero_fixo');
-        $dizimista->email = $request->input('email');
-        $dizimista->endereco = $request->input('data_nascimento');
-        $dizimista->bairro = $request->input('bairro');
-        $dizimista->cidade = $request->input('cidade');
-        $dizimista->cep = $request->input('cep');
-        $dizimista->comunidade = $request->input('comunidade');
-        $dizimista->pedido_oracao = $request->input('pedido_oracao');
-        $dizimista->participa_pastoral = (boolean)$request->input('participa_pastoral');
-        $dizimista->pastoral_desejada = $request->input('pastoral_desejada');
-        $dizimista->atualizado = (boolean)$request->input('atualizado');
-
-        
-        if ($dizimista->update()){
+        if ($alterado && $dizimista->update()){
             $request->session()->flash('mensagem-sucesso', 'Atualizado com Sucesso!');
         }
         else{

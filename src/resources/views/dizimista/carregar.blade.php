@@ -11,9 +11,24 @@
 
         <label for="nome" class="col-form-label">Nome:</label><input name="nome" type="text" value='{!! $dizimista->nome !!}' class="form-text">
         <label for="data_nascimento" class="col-form-label">Data de Nascimento:</label><input name="data_nascimento" type="date" value='{!! $dizimista->data_nascimento !!}' class="form-text">
-        <label for="sexo" class="col-form-label">Sexo:</label><input name="sexo" type="text" value='{!! $dizimista->sexo !!}' class="form-text">
-        <label for="naturalidade" class="col-form-label">Naturalidade:</label><input name="naturalidade" type="text" value='{!! $dizimista->naturalidade !!}' class="form-text">
 
+
+        <label for="sexo" class="col-form-label">Sexo:</label>
+        <select name="sexo" class="form-text" >
+            <option {{ $dizimista->sexo == 'Não Informado'?'selected':'' }}>Não Informado</option>
+            <option {{  $dizimista->sexo == 'Feminino'?'selected':''}}>Feminino</option>
+            <option {{ $dizimista->sexo == 'Masculino'?'selected':'' }}>Masculino</option>
+        </select>
+
+        <label for="naturalidade" class="col-form-label">Naturalidade:</label><input name="naturalidade" type="text" value='{!! $dizimista->naturalidade !!}' class="form-text">
+        <label for="estado_civil" class="col-form-label">Estado Civil:</label>
+        <select name="estado_civil" class="form-text" >
+            <option {{ $dizimista->estado_civil == 'Não Informado'?'selected':'' }}>Não Informado</option>
+            <option {{  $dizimista->estado_civil == 'Solteiro(a)'?'selected':''}}>Solteiro(a)</option>
+            <option {{ $dizimista->estado_civil == 'Casado(a)'?'selected':'' }}>Casado(a)</option>
+            <option {{ $dizimista->estado_civil == 'Divorciado(a)'?'selected':'' }}>Divorciado(a)</option>
+            <option {{ $dizimista->estado_civil == 'Viúvo(a)'?'selected':'' }}>Viúvo(a)</option>
+        </select>
         <label for="nome_conjuge" class="col-form-label">Nome do Conjuge:</label><input name="nome_conjuge" value='{!! $dizimista->nome_conjuge !!}' class="form-text">
         <label for="data_nascimento_conjuge" class="col-form-label">Data Nascimento Conjuge:</label><input name="data_nascimento_conjuge" type="date"  value='{!! $dizimista->data_nascimento_conjuge !!}' class="form-text">
 
@@ -29,11 +44,19 @@
         <label for="comunidade" class="col-form-label">Comunidade:</label><input name="comunidade" type="text" value='{!! $dizimista->comunidade !!}' class="form-text">
         <label for="pedido_oracao" class="col-form-label">Pedido de Oracao:</label><textarea name="pedido_oracao" class="form-text"> {{ $dizimista->pedido_oracao }}</textarea>
 
-        <label for="participa_pastoral" class="col-form-label">Participa de Pastoral?</label><input name="participa_pastoral" type="checkbox" {{ $dizimista->participa_pastoral?'checked':'' }}  class="form-check">
+        <label for="participa_pastoral" class="col-form-label">Participa de Pastoral?</label>
+        <select name="participa_pastoral" class="form-text">
+            <option value=true {{ $dizimista->participa_pastoral?'selected':'' }} >Sim</option>
+            <option value=false {{ $dizimista->participa_pastoral?'':'selected' }} >Não</option>
+        </select>
         <label for="pastoral_desejada" class="col-form-label">Pastoral Desejada:</label><input name="pastoral_desejada" type="text" value='{!! $dizimista->pastoral_desejada !!}' class="form-text">
-
-        <label for="atualizado" class="col-form-label">Atualizado:</label><input name="atualizado" type="checkbox"  {{ $dizimista->atualizado?'checked':'' }}  class="form-check">
-
+        @if ($dizimista->atualizado)
+            <label for="atualizado" class="col-form-label">Atualizado:</label>
+            <select name="atualizado" class="form-text">
+                <option value=true {{ $dizimista->atualizado?'selected':'' }} >Sim</option>
+                <option value=false {{ $dizimista->atualizado?'':'selected' }} >Não</option>
+            </select>
+        @endif
         <button class="btn-primary">Salvar</button>
     </form>
 </div>
