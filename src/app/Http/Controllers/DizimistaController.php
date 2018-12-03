@@ -19,8 +19,14 @@ class DizimistaController extends Controller
         $dizimistas = Dizimista::where([
             'atualizado' => false,
 
-        ])->get();
+        ])->get(['id', 'nome','numero_whatsapp', 'comunidade']);
         return view('dizimista.index', compact('dizimistas'));
+    }
+
+    public function todos()
+    {
+        $dizimistas = Dizimista::all(['id', 'nome','numero_whatsapp', 'comunidade']);
+        return view('dizimista.index_todos', compact('dizimistas'));
     }
 
     public function show($id){

@@ -14,8 +14,12 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{!! route('dizimista.index') !!}" class="page-link">Atualizar Dizimistas!</a>
+                    <a href="{!! route('dizimista.index') !!}" class="page-link">Cadastrar Novos Dizimistas!</a>
                 </div>
+            </div>
+            <div class="card-footer">
+                <a href="{!! route('dizimista.todos') !!}" class="alert-link">Todos os Dizimistas!</a>
             </div>
         </div>
     </div>

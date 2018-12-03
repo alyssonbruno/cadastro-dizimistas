@@ -15,5 +15,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dizimista', 'DizimistaController@index')->name('dizimista.index');
+Route::get('/dizimista/all', 'DizimistaController@todos')->name('dizimista.todos');
 Route::get('/dizimista/{id}', 'DizimistaController@show')->name('dizimista.show');
 Route::put('/dizimista/{id}/update', 'DizimistaController@update')->name('dizimista.update');
