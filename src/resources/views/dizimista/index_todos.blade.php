@@ -20,6 +20,7 @@
                     <th>Nome</th>
                     <th>WhatsApp</th>
                     <th>Comunidade</th>
+                    <th>Atualizado?</th>
                     <th>Opções</th>
                 </thead>
             @endif
@@ -28,6 +29,7 @@
                         <td>{{ $dizimista->nome }}</td>
                         <td>{{ $dizimista->numero_whatsapp }}</td>
                         <td>{{ $dizimista->comunidade }}</td>
+                        <td>{{ $dizimista->atualizado?'Sim':'Não' }}</td>
                         <td><a href='{!! route('dizimista.show', [$dizimista->id]) !!}'>Atualizar</a> </td>
                     </tr>
             @if ($loop->last)

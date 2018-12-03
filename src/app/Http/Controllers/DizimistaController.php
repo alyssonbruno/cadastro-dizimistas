@@ -25,7 +25,7 @@ class DizimistaController extends Controller
 
     public function todos()
     {
-        $dizimistas = Dizimista::all(['id', 'nome','numero_whatsapp', 'comunidade']);
+        $dizimistas = Dizimista::all(['id', 'nome','numero_whatsapp', 'comunidade', 'atualizado']);
         return view('dizimista.index_todos', compact('dizimistas'));
     }
 
@@ -69,6 +69,7 @@ class DizimistaController extends Controller
         $alterado = $this->setaAtributo($dizimista,'numero_whatsapp',$request) || $alterado;
         $alterado = $this->setaAtributo($dizimista,'numero_fixo',$request) || $alterado;
         $alterado = $this->setaAtributo($dizimista,'email',$request) || $alterado;
+        $alterado = $this->setaAtributo($dizimista,'endereco',$request) || $alterado;
         $alterado = $this->setaAtributo($dizimista,'bairro',$request) || $alterado;
         $alterado = $this->setaAtributo($dizimista,'cidade',$request) || $alterado;
         $alterado = $this->setaAtributo($dizimista,'cep',$request) || $alterado;
@@ -93,7 +94,7 @@ class DizimistaController extends Controller
             $request->session()->flash('mensagem-sucesso', 'Atualizado com Sucesso!');
         }
         else{
-            $request->session()->flash('mensagem-falha', 'Não foi possível atualizar!');
+            $request->session()->flash('mensagem-falha', 'Não houve atualização dos dados!');
         }
         return redirect()->route('dizimista.index');
     }
