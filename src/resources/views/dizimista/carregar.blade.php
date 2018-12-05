@@ -22,15 +22,17 @@
 
         <label for="naturalidade" class="col-form-label">Naturalidade:</label><input name="naturalidade" type="text" value='{!! $dizimista->naturalidade !!}' class="form-text">
         <label for="estado_civil" class="col-form-label">Estado Civil:</label>
-        <select name="estado_civil" class="form-text" >
+        <select name="estado_civil" class="form-text" onchange="mostrarConjuge(this)">
             <option {{ $dizimista->estado_civil == 'Não Informado'?'selected':'' }}>Não Informado</option>
             <option {{  $dizimista->estado_civil == 'Solteiro(a)'?'selected':''}}>Solteiro(a)</option>
             <option {{ $dizimista->estado_civil == 'Casado(a)'?'selected':'' }}>Casado(a)</option>
             <option {{ $dizimista->estado_civil == 'Divorciado(a)'?'selected':'' }}>Divorciado(a)</option>
             <option {{ $dizimista->estado_civil == 'Viúvo(a)'?'selected':'' }}>Viúvo(a)</option>
         </select>
-        <label for="nome_conjuge" class="col-form-label">Nome do Conjuge:</label><input name="nome_conjuge" value='{!! $dizimista->nome_conjuge !!}' class="form-text">
-        <label for="data_nascimento_conjuge" class="col-form-label">Data Nascimento Conjuge:</label><input name="data_nascimento_conjuge" type="date"  value='{!! $dizimista->data_nascimento_conjuge !!}' class="form-text">
+        <label name="nome_conjuge_label" for="nome_conjuge" class="col-form-label" {{ $dizimista->estado_civil == 'Casado(a)'?'':'hidden' }}>Nome do Conjuge:</label>
+        <input name="nome_conjuge" value='{!! $dizimista->nome_conjuge !!}' class="form-text" {{ $dizimista->estado_civil == 'Casado(a)'?'':'hidden' }}>
+        <label name="data_nascimento_conjuge_label" for="data_nascimento_conjuge" class="col-form-label" {{ $dizimista->estado_civil == 'Casado(a)'?'':'hidden' }}>Data Nascimento Conjuge:</label>
+        <input name="data_nascimento_conjuge" type="date"  value='{!! $dizimista->data_nascimento_conjuge !!}' class="form-text" {{ $dizimista->estado_civil == 'Casado(a)'?'':'hidden' }}>
 
         <label for="numero_whatsapp" class="col-form-label">Whatsapp:</label><input name="numero_whatsapp" value='{!! $dizimista->numero_whatsapp !!}' class="form-text">
         <label for="numero_fixo" class="col-form-label">Fixo:</label><input name="numero_fixo" value='{!! $dizimista->numero_fixo !!}' class="form-text">
@@ -61,4 +63,28 @@
     </form>
 </div>
 
+    <script type="text/javascript">
+        mostrarConjuge = function (){
+            var estado_civil = document.getElementsByName('estado_civil')[0];
+            var selecionado = estado_civil.selectedOptions[0];
+            var label_nome = document.getElementsByName('nome_conjuge_label')[0];
+            var input_nome = document.getElementsByName('nome_conjuge')[0];
+            var label_data = document.getElementsByName('data_nascimento_conjuge_label')[0];
+            var input_data = document.getElementsByName('data_nascimento_conjuge')[0];
+
+            if (selecionado.value === 'Casado(a)'){
+                label_data.removeAttribute('hidden');
+                label_nome.removeAttribute('hidden');
+                input_data.removeAttribute('hidden');
+                input_nome.removeAttribute('hidden');
+            }
+            else{
+                label_data.setAttribute('hidden',undefined);
+                label_nome.setAttribute('hidden',undefined);
+                input_data.setAttribute('hidden',undefined);
+                input_nome.setAttribute('hidden',undefined);
+
+            }
+        }
+    </script>
 @endsection
