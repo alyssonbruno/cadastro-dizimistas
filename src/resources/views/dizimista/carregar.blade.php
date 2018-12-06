@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="/dizimista/{!! $dizimista->id !!}/update" method="POST">
+    <form action='{!! route('dizimista.update', [$dizimista->id]) !!}' method="POST">
         @method('PUT')
         @csrf
         <input type="hidden" name="id" value='{!! $dizimista->id !!}'>
@@ -16,7 +16,7 @@
         <label for="sexo" class="col-form-label">Sexo:</label>
         <select name="sexo" class="form-text" >
             <option {{ $dizimista->sexo == 'Não Informado'?'selected':'' }}>Não Informado</option>
-            <option {{  $dizimista->sexo == 'Feminino'?'selected':''}}>Feminino</option>
+            <option {{ $dizimista->sexo == 'Feminino'?'selected':''}}>Feminino</option>
             <option {{ $dizimista->sexo == 'Masculino'?'selected':'' }}>Masculino</option>
         </select>
 
@@ -24,7 +24,7 @@
         <label for="estado_civil" class="col-form-label">Estado Civil:</label>
         <select name="estado_civil" class="form-text" onchange="mostrarConjuge(this)">
             <option {{ $dizimista->estado_civil == 'Não Informado'?'selected':'' }}>Não Informado</option>
-            <option {{  $dizimista->estado_civil == 'Solteiro(a)'?'selected':''}}>Solteiro(a)</option>
+            <option {{ $dizimista->estado_civil == 'Solteiro(a)'?'selected':''}}>Solteiro(a)</option>
             <option {{ $dizimista->estado_civil == 'Casado(a)'?'selected':'' }}>Casado(a)</option>
             <option {{ $dizimista->estado_civil == 'Divorciado(a)'?'selected':'' }}>Divorciado(a)</option>
             <option {{ $dizimista->estado_civil == 'Viúvo(a)'?'selected':'' }}>Viúvo(a)</option>
@@ -48,15 +48,15 @@
 
         <label for="participa_pastoral" class="col-form-label">Participa de Pastoral?</label>
         <select name="participa_pastoral" class="form-text">
-            <option value=true {{ $dizimista->participa_pastoral?'selected':'' }} >Sim</option>
-            <option value=false {{ $dizimista->participa_pastoral?'':'selected' }} >Não</option>
+            <option {{ $dizimista->participa_pastoral?'selected':'' }} >Sim</option>
+            <option {{ $dizimista->participa_pastoral?'':'selected' }} >Não</option>
         </select>
         <label for="pastoral_desejada" class="col-form-label">Pastoral Desejada:</label><input name="pastoral_desejada" type="text" value='{!! $dizimista->pastoral_desejada !!}' class="form-text">
         @if ($dizimista->atualizado)
             <label for="atualizado" class="col-form-label">Atualizado:</label>
             <select name="atualizado" class="form-text">
-                <option value=true {{ $dizimista->atualizado?'selected':'' }} >Sim</option>
-                <option value=false {{ $dizimista->atualizado?'':'selected' }} >Não</option>
+                <option {{ $dizimista->atualizado?'selected':'' }} >Sim</option>
+                <option {{ $dizimista->atualizado?'':'selected' }} >Não</option>
             </select>
         @endif
         <button class="btn-primary">Salvar</button>

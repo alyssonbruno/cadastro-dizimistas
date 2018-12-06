@@ -15,7 +15,7 @@
                     @endif
 
                     <a href="{!! route('dizimista.index') !!}" class="page-link">Atualizar Dizimistas!</a>
-                    <a href="{!! route('dizimista.index') !!}" class="page-link">Cadastrar Novos Dizimistas!</a>
+                    <!--a href="{!! route('dizimista.index') !!}" class="page-link">Cadastrar Novos Dizimistas!</a-->
                 </div>
             </div>
             <div class="card-footer">

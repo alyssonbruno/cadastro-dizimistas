@@ -42,7 +42,7 @@ class DizimistaController extends Controller
     {
         $dado = $request->input($atributo);
         if($eSimNao){
-            $dado = $dado === "Sim";
+            $dado = ($dado == "Sim")||($dado == "True");
         }
         if($objeto[$atributo]==$dado){
             return false;

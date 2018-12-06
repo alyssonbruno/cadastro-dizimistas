@@ -23,7 +23,7 @@ class CreateDizimistasTable extends Migration
             $table->date('data_nascimento_conjuge')->nullable();
             $table->string('numero_whatsapp',25)->nullable();
             $table->string('numero_fixo',24)->nullable();
-            $table->string('email',300)->nullable();
+            $table->string('email',191)->nullable();
             $table->string('naturalidade',1000)->nullable();
 
             $table->string('endereco',3000)->nullable();
@@ -39,10 +39,6 @@ class CreateDizimistasTable extends Migration
             $table->string('pastoral_desejada',300)->nullable();
 
             $table->foreign('ultimo_atualizador_id')->references('id')->on('users');
-
-            $table->unique('email');
-            $table->unique('numero_whatsapp');
-
 
             $table->timestamps();
         });

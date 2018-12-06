@@ -28,7 +28,7 @@
                         <td>{{ $dizimista->nome }}</td>
                         <td>{{ $dizimista->numero_whatsapp }}</td>
                         <td>{{ $dizimista->comunidade }}</td>
-                        <td><a href='{!! url("/dizimista/$dizimista->id") !!}'>Atualizar</a> </td>
+                        <td><a href='{!! route('dizimista.show', [$dizimista->id]) !!}'>Atualizar</a> </td>
                     </tr>
             @if ($loop->last)
                 </tbody>
